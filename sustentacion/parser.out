@@ -1,0 +1,364 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    CONSTANT
+    LBRACKET
+    MODULE
+    NUMERAL
+    PUNTO
+    RBRACKET
+
+Grammar
+
+Rule 0     S' -> body
+Rule 1     body -> sentence
+Rule 2     body -> imprimir
+Rule 3     body -> array
+Rule 4     sentence -> ID EQUALS factor SEMICOLON
+Rule 5     sentence -> ID EQUALS array
+Rule 6     array -> LBRACE cuerpo RBRACE
+Rule 7     cuerpo -> dato COMMA cuerpo
+Rule 8     cuerpo -> dato
+Rule 9     dato -> tipo COLON factor
+Rule 10    tipo -> INTEGER
+Rule 11    tipo -> STR
+Rule 12    factor -> INTEGER
+Rule 13    factor -> FLOAT
+Rule 14    factor -> STR
+Rule 15    imprimir -> PRINT LPAREN argumentos RPAREN
+Rule 16    argumentos -> factor
+Rule 17    argumentos -> factor COMMA argumentos
+
+Terminals, with rules where they appear
+
+COLON                : 9
+COMMA                : 7 17
+CONSTANT             : 
+EQUALS               : 4 5
+FLOAT                : 13
+ID                   : 4 5
+INTEGER              : 10 12
+LBRACE               : 6
+LBRACKET             : 
+LPAREN               : 15
+MODULE               : 
+NUMERAL              : 
+PRINT                : 15
+PUNTO                : 
+RBRACE               : 6
+RBRACKET             : 
+RPAREN               : 15
+SEMICOLON            : 4
+STR                  : 11 14
+error                : 
+
+Nonterminals, with rules where they appear
+
+argumentos           : 15 17
+array                : 3 5
+body                 : 0
+cuerpo               : 6 7
+dato                 : 7 8
+factor               : 4 9 16 17
+imprimir             : 2
+sentence             : 1
+tipo                 : 9
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . body
+    (1) body -> . sentence
+    (2) body -> . imprimir
+    (3) body -> . array
+    (4) sentence -> . ID EQUALS factor SEMICOLON
+    (5) sentence -> . ID EQUALS array
+    (15) imprimir -> . PRINT LPAREN argumentos RPAREN
+    (6) array -> . LBRACE cuerpo RBRACE
+
+    ID              shift and go to state 5
+    PRINT           shift and go to state 6
+    LBRACE          shift and go to state 7
+
+    body                           shift and go to state 1
+    sentence                       shift and go to state 2
+    imprimir                       shift and go to state 3
+    array                          shift and go to state 4
+
+state 1
+
+    (0) S' -> body .
+
+
+
+state 2
+
+    (1) body -> sentence .
+
+    $end            reduce using rule 1 (body -> sentence .)
+
+
+state 3
+
+    (2) body -> imprimir .
+
+    $end            reduce using rule 2 (body -> imprimir .)
+
+
+state 4
+
+    (3) body -> array .
+
+    $end            reduce using rule 3 (body -> array .)
+
+
+state 5
+
+    (4) sentence -> ID . EQUALS factor SEMICOLON
+    (5) sentence -> ID . EQUALS array
+
+    EQUALS          shift and go to state 8
+
+
+state 6
+
+    (15) imprimir -> PRINT . LPAREN argumentos RPAREN
+
+    LPAREN          shift and go to state 9
+
+
+state 7
+
+    (6) array -> LBRACE . cuerpo RBRACE
+    (7) cuerpo -> . dato COMMA cuerpo
+    (8) cuerpo -> . dato
+    (9) dato -> . tipo COLON factor
+    (10) tipo -> . INTEGER
+    (11) tipo -> . STR
+
+    INTEGER         shift and go to state 13
+    STR             shift and go to state 14
+
+    cuerpo                         shift and go to state 10
+    dato                           shift and go to state 11
+    tipo                           shift and go to state 12
+
+state 8
+
+    (4) sentence -> ID EQUALS . factor SEMICOLON
+    (5) sentence -> ID EQUALS . array
+    (12) factor -> . INTEGER
+    (13) factor -> . FLOAT
+    (14) factor -> . STR
+    (6) array -> . LBRACE cuerpo RBRACE
+
+    INTEGER         shift and go to state 17
+    FLOAT           shift and go to state 18
+    STR             shift and go to state 19
+    LBRACE          shift and go to state 7
+
+    factor                         shift and go to state 15
+    array                          shift and go to state 16
+
+state 9
+
+    (15) imprimir -> PRINT LPAREN . argumentos RPAREN
+    (16) argumentos -> . factor
+    (17) argumentos -> . factor COMMA argumentos
+    (12) factor -> . INTEGER
+    (13) factor -> . FLOAT
+    (14) factor -> . STR
+
+    INTEGER         shift and go to state 17
+    FLOAT           shift and go to state 18
+    STR             shift and go to state 19
+
+    argumentos                     shift and go to state 20
+    factor                         shift and go to state 21
+
+state 10
+
+    (6) array -> LBRACE cuerpo . RBRACE
+
+    RBRACE          shift and go to state 22
+
+
+state 11
+
+    (7) cuerpo -> dato . COMMA cuerpo
+    (8) cuerpo -> dato .
+
+    COMMA           shift and go to state 23
+    RBRACE          reduce using rule 8 (cuerpo -> dato .)
+
+
+state 12
+
+    (9) dato -> tipo . COLON factor
+
+    COLON           shift and go to state 24
+
+
+state 13
+
+    (10) tipo -> INTEGER .
+
+    COLON           reduce using rule 10 (tipo -> INTEGER .)
+
+
+state 14
+
+    (11) tipo -> STR .
+
+    COLON           reduce using rule 11 (tipo -> STR .)
+
+
+state 15
+
+    (4) sentence -> ID EQUALS factor . SEMICOLON
+
+    SEMICOLON       shift and go to state 25
+
+
+state 16
+
+    (5) sentence -> ID EQUALS array .
+
+    $end            reduce using rule 5 (sentence -> ID EQUALS array .)
+
+
+state 17
+
+    (12) factor -> INTEGER .
+
+    SEMICOLON       reduce using rule 12 (factor -> INTEGER .)
+    COMMA           reduce using rule 12 (factor -> INTEGER .)
+    RPAREN          reduce using rule 12 (factor -> INTEGER .)
+    RBRACE          reduce using rule 12 (factor -> INTEGER .)
+
+
+state 18
+
+    (13) factor -> FLOAT .
+
+    SEMICOLON       reduce using rule 13 (factor -> FLOAT .)
+    COMMA           reduce using rule 13 (factor -> FLOAT .)
+    RPAREN          reduce using rule 13 (factor -> FLOAT .)
+    RBRACE          reduce using rule 13 (factor -> FLOAT .)
+
+
+state 19
+
+    (14) factor -> STR .
+
+    SEMICOLON       reduce using rule 14 (factor -> STR .)
+    COMMA           reduce using rule 14 (factor -> STR .)
+    RPAREN          reduce using rule 14 (factor -> STR .)
+    RBRACE          reduce using rule 14 (factor -> STR .)
+
+
+state 20
+
+    (15) imprimir -> PRINT LPAREN argumentos . RPAREN
+
+    RPAREN          shift and go to state 26
+
+
+state 21
+
+    (16) argumentos -> factor .
+    (17) argumentos -> factor . COMMA argumentos
+
+    RPAREN          reduce using rule 16 (argumentos -> factor .)
+    COMMA           shift and go to state 27
+
+
+state 22
+
+    (6) array -> LBRACE cuerpo RBRACE .
+
+    $end            reduce using rule 6 (array -> LBRACE cuerpo RBRACE .)
+
+
+state 23
+
+    (7) cuerpo -> dato COMMA . cuerpo
+    (7) cuerpo -> . dato COMMA cuerpo
+    (8) cuerpo -> . dato
+    (9) dato -> . tipo COLON factor
+    (10) tipo -> . INTEGER
+    (11) tipo -> . STR
+
+    INTEGER         shift and go to state 13
+    STR             shift and go to state 14
+
+    dato                           shift and go to state 11
+    cuerpo                         shift and go to state 28
+    tipo                           shift and go to state 12
+
+state 24
+
+    (9) dato -> tipo COLON . factor
+    (12) factor -> . INTEGER
+    (13) factor -> . FLOAT
+    (14) factor -> . STR
+
+    INTEGER         shift and go to state 17
+    FLOAT           shift and go to state 18
+    STR             shift and go to state 19
+
+    factor                         shift and go to state 29
+
+state 25
+
+    (4) sentence -> ID EQUALS factor SEMICOLON .
+
+    $end            reduce using rule 4 (sentence -> ID EQUALS factor SEMICOLON .)
+
+
+state 26
+
+    (15) imprimir -> PRINT LPAREN argumentos RPAREN .
+
+    $end            reduce using rule 15 (imprimir -> PRINT LPAREN argumentos RPAREN .)
+
+
+state 27
+
+    (17) argumentos -> factor COMMA . argumentos
+    (16) argumentos -> . factor
+    (17) argumentos -> . factor COMMA argumentos
+    (12) factor -> . INTEGER
+    (13) factor -> . FLOAT
+    (14) factor -> . STR
+
+    INTEGER         shift and go to state 17
+    FLOAT           shift and go to state 18
+    STR             shift and go to state 19
+
+    factor                         shift and go to state 21
+    argumentos                     shift and go to state 30
+
+state 28
+
+    (7) cuerpo -> dato COMMA cuerpo .
+
+    RBRACE          reduce using rule 7 (cuerpo -> dato COMMA cuerpo .)
+
+
+state 29
+
+    (9) dato -> tipo COLON factor .
+
+    COMMA           reduce using rule 9 (dato -> tipo COLON factor .)
+    RBRACE          reduce using rule 9 (dato -> tipo COLON factor .)
+
+
+state 30
+
+    (17) argumentos -> factor COMMA argumentos .
+
+    RPAREN          reduce using rule 17 (argumentos -> factor COMMA argumentos .)
+
