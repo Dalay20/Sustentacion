@@ -25,42 +25,43 @@ Rule 10    tipo -> INTEGER
 Rule 11    tipo -> STR
 Rule 12    factor -> INTEGER
 Rule 13    factor -> FLOAT
-Rule 14    factor -> STR
-Rule 15    imprimir -> PRINT LPAREN argumentos RPAREN
-Rule 16    argumentos -> factor
-Rule 17    argumentos -> factor COMMA argumentos
+Rule 14    factor -> ID
+Rule 15    factor -> STR
+Rule 16    imprimir -> PRINT LPAREN argumentos RPAREN
+Rule 17    argumentos -> factor
+Rule 18    argumentos -> factor COMMA argumentos
 
 Terminals, with rules where they appear
 
 COLON                : 9
-COMMA                : 7 17
+COMMA                : 7 18
 CONSTANT             : 
 EQUALS               : 4 5
 FLOAT                : 13
-ID                   : 4 5
+ID                   : 4 5 14
 INTEGER              : 10 12
 LBRACE               : 6
 LBRACKET             : 
-LPAREN               : 15
+LPAREN               : 16
 MODULE               : 
 NUMERAL              : 
-PRINT                : 15
+PRINT                : 16
 PUNTO                : 
 RBRACE               : 6
 RBRACKET             : 
-RPAREN               : 15
+RPAREN               : 16
 SEMICOLON            : 4
-STR                  : 11 14
+STR                  : 11 15
 error                : 
 
 Nonterminals, with rules where they appear
 
-argumentos           : 15 17
+argumentos           : 16 18
 array                : 3 5
 body                 : 0
 cuerpo               : 6 7
 dato                 : 7 8
-factor               : 4 9 16 17
+factor               : 4 9 17 18
 imprimir             : 2
 sentence             : 1
 tipo                 : 9
@@ -75,7 +76,7 @@ state 0
     (3) body -> . array
     (4) sentence -> . ID EQUALS factor SEMICOLON
     (5) sentence -> . ID EQUALS array
-    (15) imprimir -> . PRINT LPAREN argumentos RPAREN
+    (16) imprimir -> . PRINT LPAREN argumentos RPAREN
     (6) array -> . LBRACE cuerpo RBRACE
 
     ID              shift and go to state 5
@@ -124,7 +125,7 @@ state 5
 
 state 6
 
-    (15) imprimir -> PRINT . LPAREN argumentos RPAREN
+    (16) imprimir -> PRINT . LPAREN argumentos RPAREN
 
     LPAREN          shift and go to state 9
 
@@ -151,38 +152,42 @@ state 8
     (5) sentence -> ID EQUALS . array
     (12) factor -> . INTEGER
     (13) factor -> . FLOAT
-    (14) factor -> . STR
+    (14) factor -> . ID
+    (15) factor -> . STR
     (6) array -> . LBRACE cuerpo RBRACE
 
-    INTEGER         shift and go to state 17
-    FLOAT           shift and go to state 18
-    STR             shift and go to state 19
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    ID              shift and go to state 15
+    STR             shift and go to state 20
     LBRACE          shift and go to state 7
 
-    factor                         shift and go to state 15
-    array                          shift and go to state 16
+    factor                         shift and go to state 16
+    array                          shift and go to state 17
 
 state 9
 
-    (15) imprimir -> PRINT LPAREN . argumentos RPAREN
-    (16) argumentos -> . factor
-    (17) argumentos -> . factor COMMA argumentos
+    (16) imprimir -> PRINT LPAREN . argumentos RPAREN
+    (17) argumentos -> . factor
+    (18) argumentos -> . factor COMMA argumentos
     (12) factor -> . INTEGER
     (13) factor -> . FLOAT
-    (14) factor -> . STR
+    (14) factor -> . ID
+    (15) factor -> . STR
 
-    INTEGER         shift and go to state 17
-    FLOAT           shift and go to state 18
-    STR             shift and go to state 19
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    ID              shift and go to state 15
+    STR             shift and go to state 20
 
-    argumentos                     shift and go to state 20
-    factor                         shift and go to state 21
+    argumentos                     shift and go to state 21
+    factor                         shift and go to state 22
 
 state 10
 
     (6) array -> LBRACE cuerpo . RBRACE
 
-    RBRACE          shift and go to state 22
+    RBRACE          shift and go to state 23
 
 
 state 11
@@ -190,7 +195,7 @@ state 11
     (7) cuerpo -> dato . COMMA cuerpo
     (8) cuerpo -> dato .
 
-    COMMA           shift and go to state 23
+    COMMA           shift and go to state 24
     RBRACE          reduce using rule 8 (cuerpo -> dato .)
 
 
@@ -198,7 +203,7 @@ state 12
 
     (9) dato -> tipo . COLON factor
 
-    COLON           shift and go to state 24
+    COLON           shift and go to state 25
 
 
 state 13
@@ -217,19 +222,29 @@ state 14
 
 state 15
 
-    (4) sentence -> ID EQUALS factor . SEMICOLON
+    (14) factor -> ID .
 
-    SEMICOLON       shift and go to state 25
+    SEMICOLON       reduce using rule 14 (factor -> ID .)
+    COMMA           reduce using rule 14 (factor -> ID .)
+    RPAREN          reduce using rule 14 (factor -> ID .)
+    RBRACE          reduce using rule 14 (factor -> ID .)
 
 
 state 16
+
+    (4) sentence -> ID EQUALS factor . SEMICOLON
+
+    SEMICOLON       shift and go to state 26
+
+
+state 17
 
     (5) sentence -> ID EQUALS array .
 
     $end            reduce using rule 5 (sentence -> ID EQUALS array .)
 
 
-state 17
+state 18
 
     (12) factor -> INTEGER .
 
@@ -239,7 +254,7 @@ state 17
     RBRACE          reduce using rule 12 (factor -> INTEGER .)
 
 
-state 18
+state 19
 
     (13) factor -> FLOAT .
 
@@ -249,40 +264,40 @@ state 18
     RBRACE          reduce using rule 13 (factor -> FLOAT .)
 
 
-state 19
-
-    (14) factor -> STR .
-
-    SEMICOLON       reduce using rule 14 (factor -> STR .)
-    COMMA           reduce using rule 14 (factor -> STR .)
-    RPAREN          reduce using rule 14 (factor -> STR .)
-    RBRACE          reduce using rule 14 (factor -> STR .)
-
-
 state 20
 
-    (15) imprimir -> PRINT LPAREN argumentos . RPAREN
+    (15) factor -> STR .
 
-    RPAREN          shift and go to state 26
+    SEMICOLON       reduce using rule 15 (factor -> STR .)
+    COMMA           reduce using rule 15 (factor -> STR .)
+    RPAREN          reduce using rule 15 (factor -> STR .)
+    RBRACE          reduce using rule 15 (factor -> STR .)
 
 
 state 21
 
-    (16) argumentos -> factor .
-    (17) argumentos -> factor . COMMA argumentos
+    (16) imprimir -> PRINT LPAREN argumentos . RPAREN
 
-    RPAREN          reduce using rule 16 (argumentos -> factor .)
-    COMMA           shift and go to state 27
+    RPAREN          shift and go to state 27
 
 
 state 22
+
+    (17) argumentos -> factor .
+    (18) argumentos -> factor . COMMA argumentos
+
+    RPAREN          reduce using rule 17 (argumentos -> factor .)
+    COMMA           shift and go to state 28
+
+
+state 23
 
     (6) array -> LBRACE cuerpo RBRACE .
 
     $end            reduce using rule 6 (array -> LBRACE cuerpo RBRACE .)
 
 
-state 23
+state 24
 
     (7) cuerpo -> dato COMMA . cuerpo
     (7) cuerpo -> . dato COMMA cuerpo
@@ -295,60 +310,64 @@ state 23
     STR             shift and go to state 14
 
     dato                           shift and go to state 11
-    cuerpo                         shift and go to state 28
+    cuerpo                         shift and go to state 29
     tipo                           shift and go to state 12
 
-state 24
+state 25
 
     (9) dato -> tipo COLON . factor
     (12) factor -> . INTEGER
     (13) factor -> . FLOAT
-    (14) factor -> . STR
+    (14) factor -> . ID
+    (15) factor -> . STR
 
-    INTEGER         shift and go to state 17
-    FLOAT           shift and go to state 18
-    STR             shift and go to state 19
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    ID              shift and go to state 15
+    STR             shift and go to state 20
 
-    factor                         shift and go to state 29
+    factor                         shift and go to state 30
 
-state 25
+state 26
 
     (4) sentence -> ID EQUALS factor SEMICOLON .
 
     $end            reduce using rule 4 (sentence -> ID EQUALS factor SEMICOLON .)
 
 
-state 26
-
-    (15) imprimir -> PRINT LPAREN argumentos RPAREN .
-
-    $end            reduce using rule 15 (imprimir -> PRINT LPAREN argumentos RPAREN .)
-
-
 state 27
 
-    (17) argumentos -> factor COMMA . argumentos
-    (16) argumentos -> . factor
-    (17) argumentos -> . factor COMMA argumentos
-    (12) factor -> . INTEGER
-    (13) factor -> . FLOAT
-    (14) factor -> . STR
+    (16) imprimir -> PRINT LPAREN argumentos RPAREN .
 
-    INTEGER         shift and go to state 17
-    FLOAT           shift and go to state 18
-    STR             shift and go to state 19
+    $end            reduce using rule 16 (imprimir -> PRINT LPAREN argumentos RPAREN .)
 
-    factor                         shift and go to state 21
-    argumentos                     shift and go to state 30
 
 state 28
+
+    (18) argumentos -> factor COMMA . argumentos
+    (17) argumentos -> . factor
+    (18) argumentos -> . factor COMMA argumentos
+    (12) factor -> . INTEGER
+    (13) factor -> . FLOAT
+    (14) factor -> . ID
+    (15) factor -> . STR
+
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    ID              shift and go to state 15
+    STR             shift and go to state 20
+
+    factor                         shift and go to state 22
+    argumentos                     shift and go to state 31
+
+state 29
 
     (7) cuerpo -> dato COMMA cuerpo .
 
     RBRACE          reduce using rule 7 (cuerpo -> dato COMMA cuerpo .)
 
 
-state 29
+state 30
 
     (9) dato -> tipo COLON factor .
 
@@ -356,9 +375,9 @@ state 29
     RBRACE          reduce using rule 9 (dato -> tipo COLON factor .)
 
 
-state 30
+state 31
 
-    (17) argumentos -> factor COMMA argumentos .
+    (18) argumentos -> factor COMMA argumentos .
 
-    RPAREN          reduce using rule 17 (argumentos -> factor COMMA argumentos .)
+    RPAREN          reduce using rule 18 (argumentos -> factor COMMA argumentos .)
 

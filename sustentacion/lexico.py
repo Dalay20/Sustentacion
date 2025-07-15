@@ -24,7 +24,6 @@ t_LBRACKET   = r'\['
 t_RBRACKET   = r'\]'
 t_LBRACE     = r'\{'
 t_RBRACE     = r'\}'
-t_NUMERAL     = r'\#'
 t_PUNTO     = r'\.'
 t_LPAREN     = r'\('
 t_RPAREN     = r'\)'
@@ -63,7 +62,7 @@ def t_newline(t):
 t_ignore  = ' \t'
 
 def t_COMMENTS(t):
-    '\#.*'
+    r'\#.*'
     pass
 
 # Error handling rule

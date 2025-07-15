@@ -27,6 +27,7 @@ def p_clave(p):
 def p_factor_valor(p):
     '''factor : INTEGER
             | FLOAT
+            | ID
             | STR'''
 
 def p_imprimir(p):

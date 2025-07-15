@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'COLON COMMA CONSTANT EQUALS FLOAT ID INTEGER LBRACE LBRACKET LPAREN MODULE NUMERAL PRINT PUNTO RBRACE RBRACKET RPAREN SEMICOLON STRbody : sentence\n            | imprimir \n            | arraysentence : ID EQUALS factor SEMICOLON\n                | ID EQUALS arrayarray : LBRACE cuerpo RBRACEcuerpo : dato COMMA cuerpo \n              | datodato : tipo COLON factortipo : INTEGER\n            | STRfactor : INTEGER\n            | FLOAT\n            | STRimprimir : PRINT LPAREN argumentos RPARENargumentos : factor\n                  | factor COMMA argumentos'
+_lr_signature = 'COLON COMMA CONSTANT EQUALS FLOAT ID INTEGER LBRACE LBRACKET LPAREN MODULE NUMERAL PRINT PUNTO RBRACE RBRACKET RPAREN SEMICOLON STRbody : sentence\n            | imprimir \n            | arraysentence : ID EQUALS factor SEMICOLON\n                | ID EQUALS arrayarray : LBRACE cuerpo RBRACEcuerpo : dato COMMA cuerpo \n              | datodato : tipo COLON factortipo : INTEGER\n            | STRfactor : INTEGER\n            | FLOAT\n            | ID\n            | STRimprimir : PRINT LPAREN argumentos RPARENargumentos : factor\n                  | factor COMMA argumentos'
     
-_lr_action_items = {'ID':([0,],[5,]),'PRINT':([0,],[6,]),'LBRACE':([0,8,],[7,7,]),'$end':([1,2,3,4,16,22,25,26,],[0,-1,-2,-3,-5,-6,-4,-15,]),'EQUALS':([5,],[8,]),'LPAREN':([6,],[9,]),'INTEGER':([7,8,9,23,24,27,],[13,17,17,13,17,17,]),'STR':([7,8,9,23,24,27,],[14,19,19,14,19,19,]),'FLOAT':([8,9,24,27,],[18,18,18,18,]),'RBRACE':([10,11,17,18,19,28,29,],[22,-8,-12,-13,-14,-7,-9,]),'COMMA':([11,17,18,19,21,29,],[23,-12,-13,-14,27,-9,]),'COLON':([12,13,14,],[24,-10,-11,]),'SEMICOLON':([15,17,18,19,],[25,-12,-13,-14,]),'RPAREN':([17,18,19,20,21,30,],[-12,-13,-14,26,-16,-17,]),}
+_lr_action_items = {'ID':([0,8,9,25,28,],[5,15,15,15,15,]),'PRINT':([0,],[6,]),'LBRACE':([0,8,],[7,7,]),'$end':([1,2,3,4,17,23,26,27,],[0,-1,-2,-3,-5,-6,-4,-16,]),'EQUALS':([5,],[8,]),'LPAREN':([6,],[9,]),'INTEGER':([7,8,9,24,25,28,],[13,18,18,13,18,18,]),'STR':([7,8,9,24,25,28,],[14,20,20,14,20,20,]),'FLOAT':([8,9,25,28,],[19,19,19,19,]),'RBRACE':([10,11,15,18,19,20,29,30,],[23,-8,-14,-12,-13,-15,-7,-9,]),'COMMA':([11,15,18,19,20,22,30,],[24,-14,-12,-13,-15,28,-9,]),'COLON':([12,13,14,],[25,-10,-11,]),'SEMICOLON':([15,16,18,19,20,],[-14,26,-12,-13,-15,]),'RPAREN':([15,18,19,20,21,22,31,],[-14,-12,-13,-15,27,-17,-18,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'body':([0,],[1,]),'sentence':([0,],[2,]),'imprimir':([0,],[3,]),'array':([0,8,],[4,16,]),'cuerpo':([7,23,],[10,28,]),'dato':([7,23,],[11,11,]),'tipo':([7,23,],[12,12,]),'factor':([8,9,24,27,],[15,21,29,21,]),'argumentos':([9,27,],[20,30,]),}
+_lr_goto_items = {'body':([0,],[1,]),'sentence':([0,],[2,]),'imprimir':([0,],[3,]),'array':([0,8,],[4,17,]),'cuerpo':([7,24,],[10,29,]),'dato':([7,24,],[11,11,]),'tipo':([7,24,],[12,12,]),'factor':([8,9,25,28,],[16,22,30,22,]),'argumentos':([9,28,],[21,31,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -40,8 +40,9 @@ _lr_productions = [
   ('tipo -> STR','tipo',1,'p_clave','main.py',25),
   ('factor -> INTEGER','factor',1,'p_factor_valor','main.py',28),
   ('factor -> FLOAT','factor',1,'p_factor_valor','main.py',29),
-  ('factor -> STR','factor',1,'p_factor_valor','main.py',30),
-  ('imprimir -> PRINT LPAREN argumentos RPAREN','imprimir',4,'p_imprimir','main.py',33),
-  ('argumentos -> factor','argumentos',1,'p_argumentos','main.py',36),
-  ('argumentos -> factor COMMA argumentos','argumentos',3,'p_argumentos','main.py',37),
+  ('factor -> ID','factor',1,'p_factor_valor','main.py',30),
+  ('factor -> STR','factor',1,'p_factor_valor','main.py',31),
+  ('imprimir -> PRINT LPAREN argumentos RPAREN','imprimir',4,'p_imprimir','main.py',34),
+  ('argumentos -> factor','argumentos',1,'p_argumentos','main.py',37),
+  ('argumentos -> factor COMMA argumentos','argumentos',3,'p_argumentos','main.py',38),
 ]
